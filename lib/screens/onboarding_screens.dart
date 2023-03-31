@@ -1,3 +1,4 @@
+import 'package:baby_bridge/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 
@@ -74,6 +75,11 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
   // in the last slide
   void _onDonePress() {
     debugPrint('Done Pressed');
+    // Navigate to home screen
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Login()),
+    );
   }
 
   @override
