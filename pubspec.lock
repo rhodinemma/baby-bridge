@@ -75,6 +75,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  intl_phone_field:
+    dependency: "direct main"
+    description:
+      name: intl_phone_field
+      sha256: "0d2b35d148ed28a454d50797e6c2fb297f0a295feab84641b02d3dd32294b3f3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
+  intro_slider:
+    dependency: "direct main"
+    description:
+      name: intro_slider
+      sha256: c6b3e830b01859446ea008a32d753d302d19805fdf1f775fb857a1e3590aead9
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.0"
   js:
     dependency: transitive
     description:
@@ -186,3 +202,4 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=2.19.6 <3.0.0"
+  flutter: ">=1.12.0"
