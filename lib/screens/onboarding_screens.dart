@@ -18,16 +18,19 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
 
     // add content for the first slide
     _listContentConfig.add(
-      const ContentConfig(
-        centerWidget: Image(
-          image: AssetImage('lib/images/mom.jpg'),
-          height: 300,
-          width: 300,
+      ContentConfig(
+        centerWidget: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: const Image(
+            image: AssetImage('lib/images/mom.jpg'),
+            height: 300,
+            width: 300,
+          ),
         ),
         title: "Welcome to Baby Bridge",
         description:
         "Bridging the gap to parenthood, with surrogacy",
-        styleDescription: TextStyle(
+        styleDescription: const TextStyle(
           color: Colors.white,
           fontSize: 22.0,
         ),
@@ -43,26 +46,34 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
           width: 300,
         ),
         title: "A journey of love and hope",
+        styleTitle: TextStyle(
+          color: Colors.black,
+          fontSize: 30.0,
+          fontWeight: FontWeight.bold,
+        ),
         description:
         "Creating families, one baby at a time",
-        styleDescription: TextStyle(
-          color: Colors.white,
+        styleDescription: const TextStyle(
+          color: Colors.black,
           fontSize: 22.0,
         ),
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.white,
       ),
     );
     // add content for the third slide
     _listContentConfig.add(
-      const ContentConfig(
-        centerWidget: Image(
-          image: AssetImage('lib/images/pregnantLadyWithDoctor.jpg'),
-          height: 300,
-          width: 300,
+       ContentConfig(
+        centerWidget: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: const Image(
+            image: AssetImage('lib/images/pregnantLadyWithDoctor.jpg'),
+            height: 300,
+            width: 300,
+          ),
         ),
         title: "Get support and guidance",
         description: "....throughout the surrogacy journey.",
-        styleDescription: TextStyle(
+        styleDescription: const TextStyle(
           color: Colors.white,
           fontSize: 22.0,
         ),
