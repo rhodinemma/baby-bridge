@@ -1,3 +1,5 @@
+import 'package:baby_bridge/screens/intended_parents_form.dart';
+import 'package:baby_bridge/screens/surrogate_mother_form.dart';
 import 'package:flutter/material.dart';
 
 class CreateProfile extends StatefulWidget {
@@ -44,6 +46,10 @@ class _CreateProfileState extends State<CreateProfile> {
               ElevatedButton(
                 onPressed: () {
                   debugPrint("Register as a Surrogate Mother");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SurrogateMotherForm()),
+                  );
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.teal),
@@ -79,6 +85,10 @@ class _CreateProfileState extends State<CreateProfile> {
               ElevatedButton(
                 onPressed: () {
                   debugPrint("Register as Intended Parents");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const IntendedParentsForm()),
+                  );
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.teal),
