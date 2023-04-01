@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'create_profile.dart';
+
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -45,9 +47,13 @@ class _LoginState extends State<Login> {
       verificationId: receivedID,
       smsCode: otpController.text,
     );
-    await auth
-        .signInWithCredential(credential)
-        .then((value) => debugPrint('User Login In Successful'));
+    await auth.signInWithCredential(credential).then((value) {
+      debugPrint('User Login In Successful');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const CreateProfile()),
+      );
+    });
   }
 
   @override
@@ -108,16 +114,19 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-            CheckboxListTile(
-              activeColor: Colors.teal,
-              value: _isChecked,
-              title: const Text(
-                  'I am over the age of 21 years and I accept terms of use'),
-              onChanged: (bool? value) {
-                setState(() {
-                  _isChecked = value!;
-                });
-              },
+            Visibility(
+              visible: otpFieldVisibility,
+              child: CheckboxListTile(
+                activeColor: Colors.teal,
+                value: _isChecked,
+                title: const Text(
+                    'I am over the age of 21 years and I accept terms of use'),
+                onChanged: (bool? value) {
+                  setState(() {
+                    _isChecked = value!;
+                  });
+                },
+              ),
             ),
             ElevatedButton(
               onPressed: () {
