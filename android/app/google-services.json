@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "357672115757",
+    "project_id": "phone-authentication-5e61d",
+    "storage_bucket": "phone-authentication-5e61d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357672115757:android:1f4462cf6f36e0ef91a2a4",
+        "android_client_info": {
+          "package_name": "com.example.baby_bridge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357672115757-t7214n60gc75nahm7t16sntiotta2oi7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARF_jFjkb6nim8HN43OFlOVxXLTi8z0jM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357672115757-t7214n60gc75nahm7t16sntiotta2oi7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

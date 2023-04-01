@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'create_profile.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -12,9 +15,46 @@ class _LoginState extends State<Login> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
 
+  FirebaseAuth auth = FirebaseAuth.instance;
+
   String userNumber = '';
   var otpFieldVisibility = false;
+  var receivedID = '';
   bool _isChecked = false;
+
+  void verifyUserPhoneNumber() {
+    auth.verifyPhoneNumber(
+      phoneNumber: userNumber,
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await auth.signInWithCredential(credential).then(
+              (value) => debugPrint('Logged In Successfully'),
+            );
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        debugPrint(e.message);
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        receivedID = verificationId;
+        otpFieldVisibility = true;
+        setState(() {});
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
+  }
+
+  Future<void> verifyOTPCode() async {
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: receivedID,
+      smsCode: otpController.text,
+    );
+    await auth.signInWithCredential(credential).then((value) {
+      debugPrint('User Login In Successful');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const CreateProfile()),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +69,13 @@ class _LoginState extends State<Login> {
         backgroundColor: Colors.teal,
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 10.0),
+        padding: const EdgeInsets.only(top: 0),
         child: Column(
           children: [
             Image.asset(
               'lib/images/baby.jpg',
-              width: 200, // Set the width of the image
-              height: 200, // Set the height of the image
+              width: 150, // Set the width of the image
+              height: 150, // Set the height of the image
               fit: BoxFit.cover, // Set the fit of the image
             ),
             const SizedBox(height: 20.0),
@@ -74,37 +114,42 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-            CheckboxListTile(
-              activeColor: Colors.teal,
-              value: _isChecked,
-              title: const Text('I am over the age of 21 years and I accept terms of use'),
-              onChanged: (bool? value) {
-                setState(() {
-                  _isChecked = value!;
-                });
-              },
+            Visibility(
+              visible: otpFieldVisibility,
+              child: CheckboxListTile(
+                activeColor: Colors.teal,
+                value: _isChecked,
+                title: const Text(
+                    'I am over the age of 21 years and I accept terms of use'),
+                onChanged: (bool? value) {
+                  setState(() {
+                    _isChecked = value!;
+                  });
+                },
+              ),
             ),
             ElevatedButton(
               onPressed: () {
-                /*if (otpFieldVisibility) {
-                verifyOTPCode();
-              } else {
-                verifyUserPhoneNumber();
-              }
-              FocusManager.instance.primaryFocus?.unfocus();*/
+                if (otpFieldVisibility) {
+                  verifyOTPCode();
+                } else {
+                  verifyUserPhoneNumber();
+                }
+                FocusManager.instance.primaryFocus?.unfocus();
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.teal),
                 minimumSize: MaterialStateProperty.all(const Size(150, 50)),
               ),
               child: Text(
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 otpFieldVisibility ? 'Login' : 'Verify',
               ),
             )
           ],
         ),
       ),
-      );
+    );
   }
 }
