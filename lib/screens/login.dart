@@ -118,6 +118,7 @@ class _LoginState extends State<Login> {
               visible: otpFieldVisibility,
               child: CheckboxListTile(
                 activeColor: Colors.teal,
+                controlAffinity: ListTileControlAffinity.leading,
                 value: _isChecked,
                 title: const Text(
                     'I am over the age of 21 years and I accept terms of use'),

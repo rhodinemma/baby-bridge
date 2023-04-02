@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 import 'package:baby_bridge/widgets/slider.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +12,12 @@ class SurrogateMotherForm extends StatefulWidget {
 }
 
 class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  String? _fullName;
+  String? _email;
+  String? _description;
+
   bool _isLocalChecked = false;
   bool _isNationalChecked = false;
   bool _isInternationalChecked = false;
@@ -17,8 +26,14 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
   String option2Text = "Intermediate";
   String option3Text = "Experienced";
 
+  String option4Text = "Yes";
+  String option5Text = "No";
+
   String? _selectedOption;
+  String? _selectedOption2;
   int newValueWithZeros = 0;
+  int numberOfChildren = 0;
+  int ageClaim = 0;
 
   final List<String> _countries = [
     'Uganda',
@@ -30,6 +45,21 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
   ];
 
   String? _selectedCountry;
+
+  // This is the file that will be used to store the image
+  File? _image;
+  // This is the image picker
+  final _picker = ImagePicker();
+  // Implementing the image picker
+  Future<void> _openImagePicker() async {
+    final XFile? pickedImage =
+        await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +101,14 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
               ],
             ),
           ),
+          Container(
+            height: 1,
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
           const SizedBox(height: 20.0),
           Padding(
             padding: const EdgeInsets.only(left: 120.0),
@@ -88,7 +126,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             ),
           ),
           const SizedBox(height: 20.0),
-          const Text("Surrogate Mother's Details",
+          const Text("Surrogate Details",
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w400,
@@ -243,6 +281,222 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
           const Text("Are you a smoker?",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+
+          Padding(
+            padding: const EdgeInsets.only(left: 40.0),
+            child: Column(
+              children: [
+                RadioListTile<String>(
+                  activeColor: Colors.teal,
+                  title: Text(option4Text),
+                  value: option4Text,
+                  groupValue: _selectedOption2,
+                  onChanged: (String? value) {
+                    setState(() {
+                      _selectedOption2 = value;
+                    });
+                  },
+                ),
+                RadioListTile<String>(
+                  activeColor: Colors.teal,
+                  title: Text(option5Text),
+                  value: option5Text,
+                  groupValue: _selectedOption2,
+                  onChanged: (String? value) {
+                    setState(() {
+                      _selectedOption2 = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 30.0),
+          const Text("How many children have you given birth to?",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          Center(child: Text(numberOfChildren.toInt().toString())),
+          SliderWidget(
+            initialValue: 1,
+            minValue: 0,
+            maxValue: 20,
+            onChanged: (newValue) {
+              int absValue = newValue
+                  .abs()
+                  .toInt(); // take the absolute value and convert it to an integer
+
+              setState(() {
+                numberOfChildren = absValue;
+              });
+              debugPrint('New value with zeros: $numberOfChildren');
+            },
+          ),
+          const SizedBox(height: 30.0),
+          const Text("What is your age?",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          Center(child: Text(ageClaim.toInt().toString())),
+          SliderWidget(
+            initialValue: 25,
+            minValue: 21,
+            maxValue: 40,
+            onChanged: (newValue) {
+              int absValue = newValue
+                  .abs()
+                  .toInt(); // take the absolute value and convert it to an integer
+
+              setState(() {
+                ageClaim = absValue;
+              });
+            },
+          ),
+          const SizedBox(height: 30.0),
+          Container(
+            height: 1,
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+
+          const SizedBox(height: 20.0),
+          Padding(
+            padding: const EdgeInsets.only(left: 120.0),
+            child: Row(
+              children: const [
+                Icon(Icons.lock, size: 30.0),
+                Text(
+                  'Private Profile',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20.0),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+                "Only contacts you have accepted will have access to some of your private information (Full name, Photo, Email address)",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w400,
+                ),
+                textAlign: TextAlign.center),
+          ),
+          const SizedBox(height: 30.0),
+
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: _openImagePicker,
+                child: CircleAvatar(
+                  backgroundColor: Colors.teal,
+                  radius: 75,
+                  backgroundImage: _image != null ? FileImage(_image!) : null,
+                  child: _image == null
+                      ? const Icon(
+                          Icons.camera_alt,
+                          size: 50,
+                        )
+                      : null,
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'Tap to upload a photo',
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 30.0),
+
+          Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'Full Name',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your full name';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _fullName = value;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _email = value;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    maxLines: 5,
+                    decoration: const InputDecoration(
+                      labelText: 'Introduce yourself in few words',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please tell us about yourself';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _description = value;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.teal),
+                      minimumSize:
+                          MaterialStateProperty.all(const Size(150, 50)),
+                    ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
+                        // Do something with the form data
+                        debugPrint('Full Name: $_fullName');
+                        debugPrint('Email: $_email');
+                        debugPrint('Description: $_description');
+                      }
+                    },
+                    child: const Text(
+                      'Save Profile',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
