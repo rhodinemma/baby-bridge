@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 import 'package:baby_bridge/widgets/slider.dart';
 import 'package:flutter/material.dart';
 
@@ -41,6 +44,21 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
   ];
 
   String? _selectedCountry;
+
+  // This is the file that will be used to store the image
+  File? _image;
+  // This is the image picker
+  final _picker = ImagePicker();
+  // Implementing the image picker
+  Future<void> _openImagePicker() async {
+    final XFile? pickedImage =
+        await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -352,6 +370,33 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
           ),
           const SizedBox(height: 30.0),
 
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: _openImagePicker,
+                child: CircleAvatar(
+                  backgroundColor: Colors.teal,
+                  radius: 75,
+                  backgroundImage: _image != null ? FileImage(_image!) : null,
+                  child: _image == null
+                      ? const Icon(
+                          Icons.camera_alt,
+                          size: 50,
+                        )
+                      : null,
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'Tap to upload a photo',
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 30.0),
+
           Form(
             key: _formKey,
             child: Padding(
@@ -410,7 +455,8 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                   ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.teal),
-                      minimumSize: MaterialStateProperty.all(const Size(150, 50)),
+                      minimumSize:
+                          MaterialStateProperty.all(const Size(150, 50)),
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -421,8 +467,11 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                         debugPrint('Description: $_description');
                       }
                     },
-                    child: const Text('Save Profile', style:
-                    TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                    child: const Text(
+                      'Save Profile',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
