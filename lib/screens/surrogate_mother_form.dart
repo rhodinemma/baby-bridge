@@ -33,6 +33,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
   String? _selectedOption2;
   int newValueWithZeros = 0;
   int numberOfChildren = 0;
+  int ageClaim = 0;
 
   final List<String> _countries = [
     'Uganda',
@@ -125,7 +126,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             ),
           ),
           const SizedBox(height: 20.0),
-          const Text("Surrogate Mother's Details",
+          const Text("Surrogate Details",
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w400,
@@ -332,6 +333,25 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             },
           ),
           const SizedBox(height: 30.0),
+          const Text("What is your age?",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          Center(child: Text(ageClaim.toInt().toString())),
+          SliderWidget(
+            initialValue: 25,
+            minValue: 21,
+            maxValue: 40,
+            onChanged: (newValue) {
+              int absValue = newValue
+                  .abs()
+                  .toInt(); // take the absolute value and convert it to an integer
+
+              setState(() {
+                ageClaim = absValue;
+              });
+            },
+          ),
+          const SizedBox(height: 30.0),
           Container(
             height: 1,
             margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -438,12 +458,12 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                   TextFormField(
                     maxLines: 5,
                     decoration: const InputDecoration(
-                      labelText: 'Description',
+                      labelText: 'Introduce yourself in few words',
                       border: OutlineInputBorder(),
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please enter a description';
+                        return 'Please tell us about yourself';
                       }
                       return null;
                     },
