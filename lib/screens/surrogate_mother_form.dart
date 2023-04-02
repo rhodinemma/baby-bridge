@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:baby_bridge/screens/home.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:baby_bridge/widgets/slider.dart';
 import 'package:flutter/material.dart';
@@ -485,6 +486,14 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                         debugPrint('Full Name: $_fullName');
                         debugPrint('Email: $_email');
                         debugPrint('Description: $_description');
+
+                        // redirect to home screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Home(),
+                          ),
+                        );
                       }
                     },
                     child: const Text(
