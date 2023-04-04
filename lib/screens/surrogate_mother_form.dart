@@ -103,10 +103,11 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
       appBar: AppBar(
         title: const Text(
           'My Profile',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0, color: Colors.black),
         ),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: const Color(0xFFFFBF9B),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: ListView(
         children: [
@@ -180,7 +181,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             padding: const EdgeInsets.only(left: 40.0),
             child: Column(children: [
               CheckboxListTile(
-                activeColor: Colors.teal,
+                activeColor: Color(0xFFFFBF9B),
                 value: _isLocalChecked,
                 controlAffinity: ListTileControlAffinity.leading,
                 onChanged: (bool? value) {
@@ -191,7 +192,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                 title: const Text("Local"),
               ),
               CheckboxListTile(
-                activeColor: Colors.teal,
+                activeColor: Color(0xFFFFBF9B),
                 value: _isNationalChecked,
                 controlAffinity: ListTileControlAffinity.leading,
                 onChanged: (bool? value) {
@@ -202,7 +203,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                 title: const Text("National"),
               ),
               CheckboxListTile(
-                activeColor: Colors.teal,
+                activeColor: Color(0xFFFFBF9B),
                 value: _isInternationalChecked,
                 controlAffinity: ListTileControlAffinity.leading,
                 onChanged: (bool? value) {
@@ -223,7 +224,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             child: Column(
               children: [
                 RadioListTile<String>(
-                  activeColor: Colors.teal,
+                  activeColor: Color(0xFFFFBF9B),
                   title: Text(option1Text),
                   value: option1Text,
                   groupValue: _selectedOption,
@@ -234,7 +235,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                   },
                 ),
                 RadioListTile<String>(
-                  activeColor: Colors.teal,
+                  activeColor: Color(0xFFFFBF9B),
                   title: Text(option2Text),
                   value: option2Text,
                   groupValue: _selectedOption,
@@ -245,7 +246,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                   },
                 ),
                 RadioListTile<String>(
-                  activeColor: Colors.teal,
+                  activeColor: Color(0xFFFFBF9B),
                   title: Text(option3Text),
                   value: option3Text,
                   groupValue: _selectedOption,
@@ -321,7 +322,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             padding: const EdgeInsets.all(15),
             child: ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.teal),
+                backgroundColor: MaterialStateProperty.all(const Color(0xFFFFBF9B)),
                 minimumSize: MaterialStateProperty.all(const Size(150, 50)),
               ),
               onPressed: () {
@@ -333,12 +334,12 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                   children: const [
                     Icon(
                       Icons.my_location,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     SizedBox(width: 10), // add some space between the icon and the text
                     Text(
                       'Give location',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                   ],
                 ),
@@ -356,7 +357,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             child: Column(
               children: [
                 RadioListTile<String>(
-                  activeColor: Colors.teal,
+                  activeColor: Color(0xFFFFBF9B),
                   title: Text(option4Text),
                   value: option4Text,
                   groupValue: _selectedOption2,
@@ -367,7 +368,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                   },
                 ),
                 RadioListTile<String>(
-                  activeColor: Colors.teal,
+                  activeColor: Color(0xFFFFBF9B),
                   title: Text(option5Text),
                   value: option5Text,
                   groupValue: _selectedOption2,
@@ -465,13 +466,14 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
               InkWell(
                 onTap: _openImagePicker,
                 child: CircleAvatar(
-                  backgroundColor: Colors.teal,
+                  backgroundColor: Color(0xFFFFBF9B),
                   radius: 75,
                   backgroundImage: _image != null ? FileImage(_image!) : null,
                   child: _image == null
                       ? const Icon(
                           Icons.camera_alt,
                           size: 50,
+                    color: Colors.black,
                         )
                       : null,
                 ),
@@ -494,7 +496,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             padding: const EdgeInsets.all(15),
             child: ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.teal),
+                backgroundColor: MaterialStateProperty.all(Color(0xFFFFBF9B)),
                 minimumSize: MaterialStateProperty.all(const Size(150, 50)),
               ),
               onPressed: () {
@@ -506,12 +508,12 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                   children: const [
                     Icon(
                       Icons.file_copy,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     SizedBox(width: 10), // add some space between the icon and the text
                     Text(
                       'Upload medical documents',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                   ],
                 ),
@@ -578,7 +580,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                   const SizedBox(height: 16),
                   ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.teal),
+                      backgroundColor: MaterialStateProperty.all(Color(0xFFFFBF9B)),
                       minimumSize:
                           MaterialStateProperty.all(const Size(150, 50)),
                     ),
@@ -602,7 +604,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                     child: const Text(
                       'Save Profile',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                   ),
                 ],

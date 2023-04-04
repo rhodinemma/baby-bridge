@@ -63,10 +63,11 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
         title: const Text(
           'Getting Started',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0, color: Colors.black),
         ),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: const Color(0xFFFFBF9B),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 0),
@@ -117,7 +118,7 @@ class _LoginState extends State<Login> {
             Visibility(
               visible: otpFieldVisibility,
               child: CheckboxListTile(
-                activeColor: Colors.teal,
+                activeColor: const Color(0xFFFFBF9B),
                 controlAffinity: ListTileControlAffinity.leading,
                 value: _isChecked,
                 title: const Text(
@@ -139,12 +140,12 @@ class _LoginState extends State<Login> {
                 FocusManager.instance.primaryFocus?.unfocus();
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.teal),
+                backgroundColor: MaterialStateProperty.all(const Color(0xFFFFBF9B)),
                 minimumSize: MaterialStateProperty.all(const Size(150, 50)),
               ),
               child: Text(
                 style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
                 otpFieldVisibility ? 'Login' : 'Verify',
               ),
             )

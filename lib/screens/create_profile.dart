@@ -17,10 +17,10 @@ class _CreateProfileState extends State<CreateProfile> {
       appBar: AppBar(
         title: const Text(
           'Choose Profile',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0, color: Colors.black),
         ),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: const Color(0xFFFFBF9B),
         automaticallyImplyLeading: false,
       ),
       body: Padding(
@@ -52,12 +52,12 @@ class _CreateProfileState extends State<CreateProfile> {
                   );
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.teal),
+                  backgroundColor: MaterialStateProperty.all(const Color(0xFFFFBF9B)),
                   minimumSize: MaterialStateProperty.all(const Size(150, 50)),
                 ),
                 child: const Text(
                   style:
-                  TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
                  'Surrogate Mother',
                 ),
               ),
@@ -91,12 +91,12 @@ class _CreateProfileState extends State<CreateProfile> {
                   );
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.teal),
+                  backgroundColor: MaterialStateProperty.all(const Color(0xFFFFBF9B)),
                   minimumSize: MaterialStateProperty.all(const Size(150, 50)),
                 ),
                 child: const Text(
                   style:
-                  TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
                   'Intended Parents',
                 ),
               ),

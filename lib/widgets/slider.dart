@@ -32,7 +32,7 @@ class _SliderWidgetState extends State<SliderWidget> {
     return Padding(
       padding: const EdgeInsets.only(left: 10.0, right: 10.0),
       child: Slider(
-        activeColor: Colors.teal,
+        activeColor: const Color(0xFFFFBF9B),
         value: _value,
         min: widget.minValue,
         max: widget.maxValue,

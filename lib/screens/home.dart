@@ -954,11 +954,12 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text(
           'Baby Bridge',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0, color: Colors.black),
         ),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Color(0xFFFFBF9B),
         automaticallyImplyLeading: false,
+        iconTheme: const IconThemeData(color: Colors.black),
         leading: IconButton(
           icon: Image.asset('lib/images/baby-clean.png'),
           onPressed: () {
@@ -1050,25 +1051,25 @@ class _HomeState extends State<Home> {
         onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.teal),
+            icon: Icon(Icons.home, color: Color(0xFF2E3840)),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.people_alt, color: Colors.teal),
+            icon: Icon(Icons.people_alt, color:Color(0xFF2E3840)),
             label: 'Connections',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message, color: Colors.teal),
+            icon: Icon(Icons.message, color: Color(0xFF2E3840)),
             label: 'Messages',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long, color: Colors.teal),
+            icon: Icon(Icons.receipt_long, color: Color(0xFF2E3840)),
             label: 'Contracts',
           ),
         ],
         iconSize: 30.0,
         backgroundColor: Colors.white,
-        selectedItemColor: Colors.teal,
+        selectedItemColor: Color(0xFF2E3840),
         unselectedItemColor: Colors.grey,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),

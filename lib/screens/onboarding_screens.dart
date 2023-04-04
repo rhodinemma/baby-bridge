@@ -34,7 +34,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
           color: Colors.white,
           fontSize: 22.0,
         ),
-        backgroundColor: Colors.teal,
+        backgroundColor: const Color(0xFF2E3840),
       ),
     );
     // add content for the second slide
@@ -53,11 +53,11 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
         ),
         description:
         "Creating families, one baby at a time",
-        styleDescription: const TextStyle(
+        styleDescription: TextStyle(
           color: Colors.black,
           fontSize: 22.0,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFE4DCCF),
       ),
     );
     // add content for the third slide
@@ -72,12 +72,17 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
           ),
         ),
         title: "Get support and guidance",
+        styleTitle: const TextStyle(
+          color: Colors.black,
+          fontSize: 30.0,
+          fontWeight: FontWeight.bold,
+        ),
         description: "....throughout the surrogacy journey.",
         styleDescription: const TextStyle(
-          color: Colors.white,
+          color: Colors.black,
           fontSize: 22.0,
         ),
-        backgroundColor: Colors.deepPurple,
+         backgroundColor: const Color(0xFFFFBF9B),
       ),
     );
   }

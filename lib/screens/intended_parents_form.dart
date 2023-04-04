@@ -63,10 +63,11 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
       appBar: AppBar(
         title: const Text(
           'My Profile',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0, color: Colors.black),
         ),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Color(0xFFFFBF9B),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: ListView(
         children: [
@@ -140,7 +141,7 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
             padding: const EdgeInsets.only(left: 40.0),
             child: Column(children: [
               CheckboxListTile(
-                activeColor: Colors.teal,
+                activeColor: Color(0xFFFFBF9B),
                 value: _isLocalChecked,
                 controlAffinity: ListTileControlAffinity.leading,
                 onChanged: (bool? value) {
@@ -151,7 +152,7 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
                 title: const Text("Local"),
               ),
               CheckboxListTile(
-                activeColor: Colors.teal,
+                activeColor: Color(0xFFFFBF9B),
                 value: _isNationalChecked,
                 controlAffinity: ListTileControlAffinity.leading,
                 onChanged: (bool? value) {
@@ -162,7 +163,7 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
                 title: const Text("National"),
               ),
               CheckboxListTile(
-                activeColor: Colors.teal,
+                activeColor: Color(0xFFFFBF9B),
                 value: _isInternationalChecked,
                 controlAffinity: ListTileControlAffinity.leading,
                 onChanged: (bool? value) {
@@ -183,7 +184,7 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
             child: Column(
               children: [
                 RadioListTile<String>(
-                  activeColor: Colors.teal,
+                  activeColor: Color(0xFFFFBF9B),
                   title: Text(option1Text),
                   value: option1Text,
                   groupValue: _selectedOption,
@@ -194,7 +195,7 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
                   },
                 ),
                 RadioListTile<String>(
-                  activeColor: Colors.teal,
+                  activeColor: Color(0xFFFFBF9B),
                   title: Text(option2Text),
                   value: option2Text,
                   groupValue: _selectedOption,
@@ -205,7 +206,7 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
                   },
                 ),
                 RadioListTile<String>(
-                  activeColor: Colors.teal,
+                  activeColor: Color(0xFFFFBF9B),
                   title: Text(option3Text),
                   value: option3Text,
                   groupValue: _selectedOption,
@@ -317,13 +318,14 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
               InkWell(
                 onTap: _openImagePicker,
                 child: CircleAvatar(
-                  backgroundColor: Colors.teal,
+                  backgroundColor: Color(0xFFFFBF9B),
                   radius: 75,
                   backgroundImage: _image != null ? FileImage(_image!) : null,
                   child: _image == null
                       ? const Icon(
                     Icons.camera_alt,
                     size: 50,
+                    color: Colors.black
                   )
                       : null,
                 ),
@@ -395,7 +397,7 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
                   const SizedBox(height: 16),
                   ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.teal),
+                      backgroundColor: MaterialStateProperty.all(Color(0xFFFFBF9B)),
                       minimumSize:
                       MaterialStateProperty.all(const Size(150, 50)),
                     ),
@@ -418,7 +420,7 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
                     child: const Text(
                       'Save Profile',
                       style:
-                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                   ),
                 ],
