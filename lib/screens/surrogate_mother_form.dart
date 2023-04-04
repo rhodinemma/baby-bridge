@@ -4,6 +4,8 @@ import 'package:baby_bridge/screens/home.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:baby_bridge/widgets/slider.dart';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:geolocator/geolocator.dart';
 
 class SurrogateMotherForm extends StatefulWidget {
   const SurrogateMotherForm({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class SurrogateMotherForm extends StatefulWidget {
 
 class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
   final _formKey = GlobalKey<FormState>();
+  final Geolocator geolocator = Geolocator();
 
   String? _fullName;
   String? _email;
@@ -62,6 +65,37 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
     }
   }
 
+  void _selectDocument() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        allowMultiple: true,
+        type: FileType.custom,
+        allowedExtensions: ['pdf', 'doc', 'docx', 'txt'],
+      );
+      if (result != null) {
+        PlatformFile file = result.files.first;
+        // Do something with the file, such as upload it to a server
+        debugPrint(file.name);
+        debugPrint(file.path);
+      } else {
+        // User canceled the file selection
+      }
+    } catch (e) {
+      debugPrint("Unsupported operation$e");
+    }
+  }
+
+  void _getLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      print(position.latitude);
+      print(position.longitude);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,10 +103,11 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
       appBar: AppBar(
         title: const Text(
           'My Profile',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0, color: Colors.black),
         ),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: const Color(0xFFFFBF9B),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: ListView(
         children: [
@@ -146,7 +181,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             padding: const EdgeInsets.only(left: 40.0),
             child: Column(children: [
               CheckboxListTile(
-                activeColor: Colors.teal,
+                activeColor: Color(0xFFFFBF9B),
                 value: _isLocalChecked,
                 controlAffinity: ListTileControlAffinity.leading,
                 onChanged: (bool? value) {
@@ -157,7 +192,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                 title: const Text("Local"),
               ),
               CheckboxListTile(
-                activeColor: Colors.teal,
+                activeColor: Color(0xFFFFBF9B),
                 value: _isNationalChecked,
                 controlAffinity: ListTileControlAffinity.leading,
                 onChanged: (bool? value) {
@@ -168,7 +203,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                 title: const Text("National"),
               ),
               CheckboxListTile(
-                activeColor: Colors.teal,
+                activeColor: Color(0xFFFFBF9B),
                 value: _isInternationalChecked,
                 controlAffinity: ListTileControlAffinity.leading,
                 onChanged: (bool? value) {
@@ -189,7 +224,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             child: Column(
               children: [
                 RadioListTile<String>(
-                  activeColor: Colors.teal,
+                  activeColor: Color(0xFFFFBF9B),
                   title: Text(option1Text),
                   value: option1Text,
                   groupValue: _selectedOption,
@@ -200,7 +235,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                   },
                 ),
                 RadioListTile<String>(
-                  activeColor: Colors.teal,
+                  activeColor: Color(0xFFFFBF9B),
                   title: Text(option2Text),
                   value: option2Text,
                   groupValue: _selectedOption,
@@ -211,7 +246,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                   },
                 ),
                 RadioListTile<String>(
-                  activeColor: Colors.teal,
+                  activeColor: Color(0xFFFFBF9B),
                   title: Text(option3Text),
                   value: option3Text,
                   groupValue: _selectedOption,
@@ -279,6 +314,40 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             ),
           ),
           const SizedBox(height: 30.0),
+
+          const Text("Share with us your location",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(const Color(0xFFFFBF9B)),
+                minimumSize: MaterialStateProperty.all(const Size(150, 50)),
+              ),
+              onPressed: () {
+                _getLocation();
+              },
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.my_location,
+                      color: Colors.black,
+                    ),
+                    SizedBox(width: 10), // add some space between the icon and the text
+                    Text(
+                      'Give location',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+                    ),
+                  ],
+                ),
+              )
+            ),
+          ),
+
+          const SizedBox(height: 30.0),
           const Text("Are you a smoker?",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
@@ -288,7 +357,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             child: Column(
               children: [
                 RadioListTile<String>(
-                  activeColor: Colors.teal,
+                  activeColor: Color(0xFFFFBF9B),
                   title: Text(option4Text),
                   value: option4Text,
                   groupValue: _selectedOption2,
@@ -299,7 +368,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                   },
                 ),
                 RadioListTile<String>(
-                  activeColor: Colors.teal,
+                  activeColor: Color(0xFFFFBF9B),
                   title: Text(option5Text),
                   value: option5Text,
                   groupValue: _selectedOption2,
@@ -397,13 +466,14 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
               InkWell(
                 onTap: _openImagePicker,
                 child: CircleAvatar(
-                  backgroundColor: Colors.teal,
+                  backgroundColor: Color(0xFFFFBF9B),
                   radius: 75,
                   backgroundImage: _image != null ? FileImage(_image!) : null,
                   child: _image == null
                       ? const Icon(
                           Icons.camera_alt,
                           size: 50,
+                    color: Colors.black,
                         )
                       : null,
                 ),
@@ -414,6 +484,41 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                 style: TextStyle(fontSize: 16),
               ),
             ],
+          ),
+
+          const SizedBox(height: 50.0),
+
+          const Text(
+              "Share any medical documents [HIV Status, Diabetes, Hepatitis B, etc.]",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Color(0xFFFFBF9B)),
+                minimumSize: MaterialStateProperty.all(const Size(150, 50)),
+              ),
+              onPressed: () {
+                _selectDocument();
+              },
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.file_copy,
+                      color: Colors.black,
+                    ),
+                    SizedBox(width: 10), // add some space between the icon and the text
+                    Text(
+                      'Upload medical documents',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+                    ),
+                  ],
+                ),
+              )
+            ),
           ),
 
           const SizedBox(height: 30.0),
@@ -475,7 +580,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                   const SizedBox(height: 16),
                   ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.teal),
+                      backgroundColor: MaterialStateProperty.all(Color(0xFFFFBF9B)),
                       minimumSize:
                           MaterialStateProperty.all(const Size(150, 50)),
                     ),
@@ -499,7 +604,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                     child: const Text(
                       'Save Profile',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                   ),
                 ],
