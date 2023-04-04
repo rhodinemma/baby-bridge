@@ -4,6 +4,8 @@ import 'package:baby_bridge/screens/home.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:baby_bridge/widgets/slider.dart';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:geolocator/geolocator.dart';
 
 class SurrogateMotherForm extends StatefulWidget {
   const SurrogateMotherForm({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class SurrogateMotherForm extends StatefulWidget {
 
 class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
   final _formKey = GlobalKey<FormState>();
+  final Geolocator geolocator = Geolocator();
 
   String? _fullName;
   String? _email;
@@ -59,6 +62,37 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
       setState(() {
         _image = File(pickedImage.path);
       });
+    }
+  }
+
+  void _selectDocument() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        allowMultiple: true,
+        type: FileType.custom,
+        allowedExtensions: ['pdf', 'doc', 'docx', 'txt'],
+      );
+      if (result != null) {
+        PlatformFile file = result.files.first;
+        // Do something with the file, such as upload it to a server
+        debugPrint(file.name);
+        debugPrint(file.path);
+      } else {
+        // User canceled the file selection
+      }
+    } catch (e) {
+      debugPrint("Unsupported operation$e");
+    }
+  }
+
+  void _getLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      print(position.latitude);
+      print(position.longitude);
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -279,6 +313,40 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             ),
           ),
           const SizedBox(height: 30.0),
+
+          const Text("Share with us your location",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.teal),
+                minimumSize: MaterialStateProperty.all(const Size(150, 50)),
+              ),
+              onPressed: () {
+                _getLocation();
+              },
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.my_location,
+                      color: Colors.white,
+                    ),
+                    SizedBox(width: 10), // add some space between the icon and the text
+                    Text(
+                      'Give location',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              )
+            ),
+          ),
+
+          const SizedBox(height: 30.0),
           const Text("Are you a smoker?",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
@@ -414,6 +482,41 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                 style: TextStyle(fontSize: 16),
               ),
             ],
+          ),
+
+          const SizedBox(height: 50.0),
+
+          const Text(
+              "Share any medical documents [HIV Status, Diabetes, Hepatitis B, etc.]",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.teal),
+                minimumSize: MaterialStateProperty.all(const Size(150, 50)),
+              ),
+              onPressed: () {
+                _selectDocument();
+              },
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.file_copy,
+                      color: Colors.white,
+                    ),
+                    SizedBox(width: 10), // add some space between the icon and the text
+                    Text(
+                      'Upload medical documents',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              )
+            ),
           ),
 
           const SizedBox(height: 30.0),
