@@ -9,6 +9,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
+  String selectedValue = '18-25'; // initial selected value of the modal
   List<Widget> _widgetOptions = [];
 
   @override
@@ -20,11 +21,219 @@ class _HomeState extends State<Home> {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
       const Text('You have no messages',
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+      const Text('You have no active contracts',
+          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
     ];
   }
 
   ListView _buildListView() {
     return ListView(children: <Widget>[
+      const Padding(
+        padding: EdgeInsets.all(15.0),
+        child: Text('Showing All Surrogates',
+            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Row(
+          children: [
+            const Text('Filter by:',
+                style: TextStyle(fontSize: 18.0)),
+            const SizedBox(width: 10.0),
+            ElevatedButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    // define the modal content
+                    return SizedBox(
+                      height: 200,
+                      child: Column(
+                        children: [
+                          ListTile(
+                            title: const Text('Uganda'),
+                            onTap: () {
+                              selectedValue = 'Uganda';
+                              Navigator.pop(context);
+                            },
+                          ),
+                          ListTile(
+                            title: const Text('Kenya'),
+                            onTap: () {
+                              selectedValue = 'Kenya';
+                              Navigator.pop(context);
+                            },
+                          ),
+                          ListTile(
+                            title: const Text('Tanzania'),
+                            onTap: () {
+                              selectedValue = 'Tanzania';
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ).then((value) {
+                  if (value != null) {
+                    selectedValue = value;
+                    // add your code to handle the selected value here
+                    debugPrint(selectedValue);
+                  }
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                  side: const BorderSide(width: 1), backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  padding:
+                  const EdgeInsets.symmetric(vertical: 5, horizontal: 10)),
+              child: Row(
+                children: const [
+                  Text(
+                    'Nationality',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Icon(Icons.arrow_drop_down, color: Colors.black),
+                ],
+              ),
+            ),
+            const SizedBox(width: 10.0),
+            ElevatedButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    // define the modal content
+                    return SizedBox(
+                      height: 200,
+                      child: Column(
+                        children: [
+                          ListTile(
+                            title: const Text('21-25'),
+                            onTap: () {
+                              selectedValue = '21-25';
+                              Navigator.pop(context);
+                            },
+                          ),
+                          ListTile(
+                            title: const Text('26-35'),
+                            onTap: () {
+                              selectedValue = '26-35';
+                              Navigator.pop(context);
+                            },
+                          ),
+                          ListTile(
+                            title: const Text('36-45'),
+                            onTap: () {
+                              selectedValue = '36-45';
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ).then((value) {
+                  if (value != null) {
+                    selectedValue = value;
+                    // add your code to handle the selected value here
+                    debugPrint(selectedValue);
+                  }
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                  side: const BorderSide(width: 1), backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  padding:
+                  const EdgeInsets.symmetric(vertical: 5, horizontal: 10)),
+              child: Row(
+                children: const [
+                  Text(
+                    'Age',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Icon(Icons.arrow_drop_down, color: Colors.black),
+                ],
+              ),
+            ),
+            const SizedBox(width: 10.0),
+            ElevatedButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    // define the modal content
+                    return SizedBox(
+                      height: 200,
+                      child: Column(
+                        children: [
+                          ListTile(
+                            title: const Text('UGX 20M-30M'),
+                            onTap: () {
+                              selectedValue = '20-30';
+                              Navigator.pop(context);
+                            },
+                          ),
+                          ListTile(
+                            title: const Text('UGX 30M-40M'),
+                            onTap: () {
+                              selectedValue = '30-40';
+                              Navigator.pop(context);
+                            },
+                          ),
+                          ListTile(
+                            title: const Text('UGX 40M-50M'),
+                            onTap: () {
+                              selectedValue = '40-50';
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ).then((value) {
+                  if (value != null) {
+                    selectedValue = value;
+                    // add your code to handle the selected value here
+                    debugPrint(selectedValue);
+                  }
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                  side: const BorderSide(width: 1), backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  padding:
+                  const EdgeInsets.symmetric(vertical: 5, horizontal: 10)),
+              child: Row(
+                children: const [
+                  Text(
+                    'Fees',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Icon(Icons.arrow_drop_down, color: Colors.black),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
       Padding(
         padding: const EdgeInsets.all(15.0),
         child: Card(
@@ -69,7 +278,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -97,7 +306,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -126,7 +335,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -155,7 +364,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -184,7 +393,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -213,7 +422,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Icon(Icons.smoke_free, size: 20.0),
@@ -294,7 +503,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -322,7 +531,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -351,7 +560,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -380,7 +589,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -409,7 +618,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -438,7 +647,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Icon(Icons.smoke_free, size: 20.0),
@@ -519,7 +728,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -547,7 +756,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -576,7 +785,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -605,7 +814,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -634,7 +843,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -663,7 +872,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 16.0,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Icon(Icons.smoke_free, size: 20.0),
@@ -709,6 +918,35 @@ class _HomeState extends State<Home> {
     });
   }
 
+  // define a text editing controller to handle the search query
+  final TextEditingController _searchQueryController = TextEditingController();
+
+// function to open the search bar dialog
+  void _openSearchBar() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: TextField(
+            controller: _searchQueryController,
+            decoration: InputDecoration(
+              hintText: 'Search...',
+              suffixIcon: IconButton(
+                color: Colors.teal,
+                icon: const Icon(Icons.search),
+                onPressed: () {
+                  // handle search query
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -728,6 +966,10 @@ class _HomeState extends State<Home> {
           },
         ),
         actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: _openSearchBar,
+          ),
           PopupMenuButton<String>(
             onSelected: (value) {
               switch (value) {
@@ -751,6 +993,12 @@ class _HomeState extends State<Home> {
                   break;
                 case 'contact_support':
                   /*Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Screen3()),
+                    );*/
+                  break;
+                case 'report':
+                /*Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => Screen3()),
                     );*/
@@ -782,6 +1030,10 @@ class _HomeState extends State<Home> {
                   child: Text('Contact Support'),
                 ),
                 const PopupMenuItem(
+                  value: 'report',
+                  child: Text('Report'),
+                ),
+                const PopupMenuItem(
                   value: 'sign_out',
                   child: Text('Sign Out'),
                 ),
@@ -808,6 +1060,10 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Icon(Icons.message, color: Colors.teal),
             label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt_long, color: Colors.teal),
+            label: 'Contracts',
           ),
         ],
         iconSize: 30.0,
