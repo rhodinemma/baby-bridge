@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:baby_bridge/screens/dashboard.dart';
 import 'package:baby_bridge/screens/intended_parents_form.dart';
 import 'package:baby_bridge/screens/surrogate_mother_form.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +20,42 @@ class _CreateProfileState extends State<CreateProfile> {
       appBar: AppBar(
         title: const Text(
           'Choose Profile',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0, color: Colors.black),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 23.0, color: Colors.black),
         ),
         centerTitle: true,
         backgroundColor: const Color(0xFFFFBF9B),
+        iconTheme: const IconThemeData(color: Colors.black),
         automaticallyImplyLeading: false,
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              switch (value) {
+                case 'admin_dashboard':
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Dashboard()),
+                    );
+                  break;
+                case 'close_app':
+
+                  break;
+              }
+            },
+            itemBuilder: (BuildContext context) {
+              return [
+                const PopupMenuItem(
+                  value: 'admin_dashboard',
+                  child: Text('Admin Dashboard'),
+                ),
+                const PopupMenuItem(
+                  value: 'logout',
+                  child: Text('Close App'),
+                ),
+              ];
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 20.0),
@@ -36,7 +70,7 @@ class _CreateProfileState extends State<CreateProfile> {
               ),
               const SizedBox(height: 20.0),
               const Text(
-                'Register as',
+                'Continue as',
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
@@ -48,17 +82,21 @@ class _CreateProfileState extends State<CreateProfile> {
                   debugPrint("Register as a Surrogate Mother");
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const SurrogateMotherForm()),
+                    MaterialPageRoute(
+                        builder: (context) => const SurrogateMotherForm()),
                   );
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(const Color(0xFFFFBF9B)),
+                  backgroundColor:
+                      MaterialStateProperty.all(const Color(0xFFFFBF9B)),
                   minimumSize: MaterialStateProperty.all(const Size(150, 50)),
                 ),
                 child: const Text(
-                  style:
-                  TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-                 'Surrogate Mother',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                  'Surrogate Mother',
                 ),
               ),
               const Padding(
@@ -87,16 +125,20 @@ class _CreateProfileState extends State<CreateProfile> {
                   debugPrint("Register as Intended Parents");
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const IntendedParentsForm()),
+                    MaterialPageRoute(
+                        builder: (context) => const IntendedParentsForm()),
                   );
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(const Color(0xFFFFBF9B)),
+                  backgroundColor:
+                      MaterialStateProperty.all(const Color(0xFFFFBF9B)),
                   minimumSize: MaterialStateProperty.all(const Size(150, 50)),
                 ),
                 child: const Text(
-                  style:
-                  TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                   'Intended Parents',
                 ),
               ),
