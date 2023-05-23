@@ -148,6 +148,7 @@ class _DashboardState extends State<Dashboard>
         child: Column(
           children: [
             TabBar(
+              isScrollable: true,
               labelColor: Colors.black,
               controller: _tabController,
               tabs: const [

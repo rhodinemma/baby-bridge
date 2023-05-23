@@ -31,7 +31,7 @@ class _CreateProfileState extends State<CreateProfile> {
           PopupMenuButton<String>(
             onSelected: (value) {
               switch (value) {
-                case 'admin_panel':
+                case 'admin_dashboard':
                   Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const Dashboard()),
@@ -45,8 +45,8 @@ class _CreateProfileState extends State<CreateProfile> {
             itemBuilder: (BuildContext context) {
               return [
                 const PopupMenuItem(
-                  value: 'admin_panel',
-                  child: Text('Admin Panel'),
+                  value: 'admin_dashboard',
+                  child: Text('Admin Dashboard'),
                 ),
                 const PopupMenuItem(
                   value: 'logout',
@@ -70,7 +70,7 @@ class _CreateProfileState extends State<CreateProfile> {
               ),
               const SizedBox(height: 20.0),
               const Text(
-                'Register as',
+                'Continue as',
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
