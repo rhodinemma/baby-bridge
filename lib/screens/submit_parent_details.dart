@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 
-class SubmitSurrogateDetails extends StatefulWidget {
-  const SubmitSurrogateDetails({Key? key}) : super(key: key);
+class SubmitParentsDetails extends StatefulWidget {
+  const SubmitParentsDetails({Key? key}) : super(key: key);
 
   @override
-  State<SubmitSurrogateDetails> createState() => _SubmitSurrogateDetailsState();
+  State<SubmitParentsDetails> createState() => _SubmitParentsDetailsState();
 }
 
-class _SubmitSurrogateDetailsState extends State<SubmitSurrogateDetails> {
+class _SubmitParentsDetailsState extends State<SubmitParentsDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +35,7 @@ class _SubmitSurrogateDetailsState extends State<SubmitSurrogateDetails> {
             ),
             SizedBox(height: 20.0),
             Text(
-              'Your details have been submitted and will be used to connect you to intended parents.',
+              'Your details have been submitted for review and will be used to connect you to surrogate mothers.',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
             ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:baby_bridge/screens/home.dart';
+import 'package:baby_bridge/screens/submit_parent_details.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:baby_bridge/widgets/slider.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
   String option3Text = "Experienced";
 
   int newValueWithZeros = 0;
+  int ageClaim = 0;
 
   final List<String> _countries = [
     'Uganda',
@@ -61,9 +63,17 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
-          'My Profile',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0, color: Colors.black),
+        title: Padding(
+          padding: const EdgeInsets.only(left: 45.0),
+          child: Row(
+            children: const [
+              Icon(Icons.person, size: 30.0),
+              Text(
+                'My Profile',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0, color: Colors.black),
+              ),
+            ],
+          ),
         ),
         centerTitle: true,
         backgroundColor: Color(0xFFFFBF9B),
@@ -71,32 +81,6 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
       ),
       body: ListView(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                  onTap: () {
-                    debugPrint("Delete Account");
-                  },
-                  child: const Text(
-                    'Delete Account',
-                    style: TextStyle(fontSize: 16, color: Colors.black),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    debugPrint("My Subscription");
-                  },
-                  child: const Text(
-                    'My Subscription',
-                    style: TextStyle(fontSize: 16, color: Colors.black),
-                  ),
-                ),
-              ],
-            ),
-          ),
           Container(
             height: 1,
             margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -106,35 +90,11 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
             ),
           ),
           const SizedBox(height: 20.0),
-          Padding(
-            padding: const EdgeInsets.only(left: 120.0),
-            child: Row(
-              children: const [
-                Icon(Icons.lock_clock, size: 30.0),
-                Text(
-                  'Under Review',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20.0),
-          const Text("Intended Parent Details",
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w400,
-                decoration: TextDecoration.underline,
-              ),
-              textAlign: TextAlign.center),
-          const SizedBox(height: 20.0),
           const Text("Anonymous Username: coastal-parent01",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w400)),
           const SizedBox(height: 30.0),
-          const Text("Accepting contacts",
+          const Text("Location Preference",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
           Padding(
@@ -247,7 +207,26 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
             },
           ),
           const SizedBox(height: 30.0),
-          const Text("Your Country of Residence",
+          const Text("Age Preference",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          Center(child: Text(ageClaim.toInt().toString())),
+          SliderWidget(
+            initialValue: 25,
+            minValue: 21,
+            maxValue: 40,
+            onChanged: (newValue) {
+              int absValue = newValue
+                  .abs()
+                  .toInt(); // take the absolute value and convert it to an integer
+
+              setState(() {
+                ageClaim = absValue;
+              });
+            },
+          ),
+          const SizedBox(height: 30.0),
+          const Text("Country Preference",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
           const SizedBox(height: 30.0),
@@ -290,7 +269,7 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
               children: const [
                 Icon(Icons.lock, size: 30.0),
                 Text(
-                  'Private Profile',
+                  'Private Credentials',
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
@@ -303,7 +282,7 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
-                "Only contacts you have accepted will have access to some of your private information (Full name, Photo, Email address)",
+                "The information you provide below will be used to connect you to surrogate mothers (Full name, Photo, Email address)",
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.w400,
@@ -412,13 +391,13 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Home(),
+                            builder: (context) => const SubmitParentsDetails(),
                           ),
                         );
                       }
                     },
                     child: const Text(
-                      'Save Profile',
+                      'Submit Details',
                       style:
                       TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
                     ),

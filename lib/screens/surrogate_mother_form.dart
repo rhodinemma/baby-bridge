@@ -102,9 +102,17 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
-          'My Profile',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0, color: Colors.black),
+        title: Padding(
+          padding: const EdgeInsets.only(left: 45.0),
+          child: Row(
+            children: const [
+              Icon(Icons.person, size: 30.0),
+              Text(
+                'My Profile',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.0, color: Colors.black),
+              ),
+            ],
+          ),
         ),
         centerTitle: true,
         backgroundColor: const Color(0xFFFFBF9B),
@@ -112,32 +120,6 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
       ),
       body: ListView(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                  onTap: () {
-                    debugPrint("Delete Account");
-                  },
-                  child: const Text(
-                    'Delete Account',
-                    style: TextStyle(fontSize: 16, color: Colors.black),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    debugPrint("My Subscription");
-                  },
-                  child: const Text(
-                    'My Subscription',
-                    style: TextStyle(fontSize: 16, color: Colors.black),
-                  ),
-                ),
-              ],
-            ),
-          ),
           Container(
             height: 1,
             margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -147,27 +129,11 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             ),
           ),
           const SizedBox(height: 20.0),
-          Padding(
-            padding: const EdgeInsets.only(left: 120.0),
-            child: Row(
-              children: const [
-                Icon(Icons.person, size: 30.0),
-                Text(
-                  'New Profile',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20.0),
           const Text("Anonymous Username: coastal-mom29",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w400)),
           const SizedBox(height: 30.0),
-          const Text("Accepting contacts",
+          const Text("Location Preference",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
           Padding(
