@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:baby_bridge/screens/home.dart';
+import 'package:baby_bridge/screens/submit_surrogate_details.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:baby_bridge/widgets/slider.dart';
 import 'package:flutter/material.dart';
@@ -150,9 +151,9 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
             padding: const EdgeInsets.only(left: 120.0),
             child: Row(
               children: const [
-                Icon(Icons.lock_clock, size: 30.0),
+                Icon(Icons.person, size: 30.0),
                 Text(
-                  'Under Review',
+                  'New Profile',
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
@@ -161,14 +162,6 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
               ],
             ),
           ),
-          const SizedBox(height: 20.0),
-          const Text("Surrogate Details",
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w400,
-                decoration: TextDecoration.underline,
-              ),
-              textAlign: TextAlign.center),
           const SizedBox(height: 20.0),
           const Text("Anonymous Username: coastal-mom29",
               textAlign: TextAlign.center,
@@ -438,7 +431,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
               children: const [
                 Icon(Icons.lock, size: 30.0),
                 Text(
-                  'Private Profile',
+                  'Private Credentials',
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
@@ -451,7 +444,7 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
-                "Only contacts you have accepted will have access to some of your private information (Full name, Photo, Email address)",
+                "The information you provide below will be used to connect you to intended parents (Full name, Photo, Email address)",
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.w400,
@@ -599,10 +592,18 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                             builder: (context) => const Home(),
                           ),
                         );*/
+
+                        // show submit success screen if no errors
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SubmitSurrogateDetails(),
+                          ),
+                        );
                       }
                     },
                     child: const Text(
-                      'Save Profile',
+                      'Submit Details',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
                     ),

@@ -132,11 +132,15 @@ class _LoginState extends State<Login> {
             ),
             ElevatedButton(
               onPressed: () {
-                if (otpFieldVisibility) {
+                /*if (otpFieldVisibility) {
                   verifyOTPCode();
                 } else {
                   verifyUserPhoneNumber();
-                }
+                }*/
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CreateProfile()),
+                );
                 FocusManager.instance.primaryFocus?.unfocus();
               },
               style: ButtonStyle(
