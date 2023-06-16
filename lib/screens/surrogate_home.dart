@@ -170,8 +170,7 @@ class _SurrogateHomeState extends State<SurrogateHome> {
             final document = data[index];
             final avatarData = document['avatar'] as Map<String, dynamic>?;
             final base64Image = avatarData?['base64Image'] as String?;
-            final fullName = document['fullName'] as String?;
-            final compensation = document['expectedCompensation'] as String?;
+            final fullName = document['anonymousName'] as String?;
             final surrogacyKnowledge = document['surrogacyKnowledge'] as String?;
 
             return Card(
@@ -198,7 +197,6 @@ class _SurrogateHomeState extends State<SurrogateHome> {
                           ),
                         ),
                         Text('Surrogacy Knowledge: $surrogacyKnowledge' ?? ''),
-                        Text(compensation != null ? 'Compensation: $compensation' : ''),
                       ],
                     ),
                   ],
@@ -259,6 +257,8 @@ class _SurrogateHomeState extends State<SurrogateHome> {
                     backgroundImage: base64Image != null ? _getImageProvider(base64Image) : null,
                     radius: 80.0,
                   ),
+                  const SizedBox(height: 16.0),
+                  _buildTextRow('Anonymous Name', '${data['anonymousName'] ?? 'N/A'}'),
                   const SizedBox(height: 16.0),
                   _buildTextRow('Full Name', '${data['fullName'] ?? 'N/A'}'),
                   const SizedBox(height: 18.0),

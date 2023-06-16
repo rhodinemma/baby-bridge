@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:baby_bridge/screens/home.dart';
 import 'package:baby_bridge/screens/submit_parent_details.dart';
@@ -68,8 +69,11 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
     final base64Image = _convertImageToBase64(_image!);
     final imageData = {'base64Image': base64Image};
 
+    final anonymousName = 'anonymous-${generateRandomString(6)}';
+
     await formValues.add({
       'avatar': imageData,
+      'anonymousName': anonymousName,
       'fullName': _fullName,
       'email': _email,
       'description': _description,
@@ -90,6 +94,13 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
     final bytes = image.readAsBytesSync();
     final base64Image = base64Encode(bytes);
     return base64Image;
+  }
+
+  String generateRandomString(int length) {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    final random = Random();
+    final codeUnits = List<int>.generate(length, (index) => chars.codeUnitAt(random.nextInt(chars.length)));
+    return String.fromCharCodes(codeUnits);
   }
 
   @override
