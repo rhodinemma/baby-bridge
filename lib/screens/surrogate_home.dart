@@ -197,6 +197,8 @@ class _SurrogateHomeState extends State<SurrogateHome> {
                           ),
                         ),
                         Text('Surrogacy Knowledge: $surrogacyKnowledge' ?? ''),
+                        const SizedBox(height: 10.0),
+                        Text('Offered Compensation: UGX ${document['expectedCompensation'] ?? 'N/A'}'),
                       ],
                     ),
                   ],
