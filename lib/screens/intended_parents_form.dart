@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:baby_bridge/screens/home.dart';
 import 'package:baby_bridge/screens/submit_parent_details.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:baby_bridge/widgets/slider.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class IntendedParentsForm extends StatefulWidget {
   const IntendedParentsForm({Key? key}) : super(key: key);
@@ -14,6 +17,7 @@ class IntendedParentsForm extends StatefulWidget {
 }
 
 class _IntendedParentsFormState extends State<IntendedParentsForm> {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   final _formKey = GlobalKey<FormState>();
 
   String? _fullName;
@@ -56,6 +60,47 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
         _image = File(pickedImage.path);
       });
     }
+  }
+
+  void _saveFormValues() async {
+    CollectionReference formValues =
+    firestore.collection('intended_parents'); // Choose a collection name
+
+    final base64Image = _convertImageToBase64(_image!);
+    final imageData = {'base64Image': base64Image};
+
+    final anonymousName = 'anonymous-${generateRandomString(6)}';
+
+    await formValues.add({
+      'avatar': imageData,
+      'anonymousName': anonymousName,
+      'fullName': _fullName,
+      'email': _email,
+      'description': _description,
+      'agePreference': ageClaim,
+      'surrogacyKnowledge': _selectedOption,
+      'countryPreference': _selectedCountry,
+      'locationPreference': _isLocalChecked ? "Local" : _isNationalChecked ? "National" : "International",
+      'expectedCompensation': newValueWithZeros,
+      'createdAt': DateTime.now(),
+    }).then((value) {
+      print('Form values saved successfully!');
+    }).catchError((error) {
+      print('Failed to save form values: $error');
+    });
+  }
+
+  String _convertImageToBase64(File image) {
+    final bytes = image.readAsBytesSync();
+    final base64Image = base64Encode(bytes);
+    return base64Image;
+  }
+
+  String generateRandomString(int length) {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    final random = Random();
+    final codeUnits = List<int>.generate(length, (index) => chars.codeUnitAt(random.nextInt(chars.length)));
+    return String.fromCharCodes(codeUnits);
   }
 
   @override
@@ -387,6 +432,9 @@ class _IntendedParentsFormState extends State<IntendedParentsForm> {
                         debugPrint('Full Name: $_fullName');
                         debugPrint('Email: $_email');
                         debugPrint('Description: $_description');
+
+                        _saveFormValues();
+
                         // redirect to home screen
                         Navigator.push(
                           context,

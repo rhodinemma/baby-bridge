@@ -1,4 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:baby_bridge/screens/home.dart';
 import 'package:baby_bridge/screens/submit_surrogate_details.dart';
@@ -104,7 +107,14 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
     CollectionReference formValues =
     firestore.collection('surrogate_mothers'); // Choose a collection name
 
+    final base64Image = _convertImageToBase64(_image!);
+    final imageData = {'base64Image': base64Image};
+
+    final anonymousName = 'anonymous-${generateRandomString(6)}';
+
     await formValues.add({
+      'avatar': imageData,
+      'anonymousName': anonymousName,
       'fullName': _fullName,
       'email': _email,
       'description': _description,
@@ -115,11 +125,25 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
       'expectedCompensation': newValueWithZeros,
       'numberOfChildren': numberOfChildren,
       'smoker': _selectedOption2,
+      'createdAt': DateTime.now(),
     }).then((value) {
       print('Form values saved successfully!');
     }).catchError((error) {
       print('Failed to save form values: $error');
     });
+  }
+
+  String _convertImageToBase64(File image) {
+    final bytes = image.readAsBytesSync();
+    final base64Image = base64Encode(bytes);
+    return base64Image;
+  }
+
+  String generateRandomString(int length) {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    final random = Random();
+    final codeUnits = List<int>.generate(length, (index) => chars.codeUnitAt(random.nextInt(chars.length)));
+    return String.fromCharCodes(codeUnits);
   }
 
   @override
@@ -577,14 +601,6 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                         debugPrint('Description: $_description');
 
                         _saveFormValues();
-
-                        // redirect to home screen
-                        /*Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Home(),
-                          ),
-                        );*/
 
                         // show submit success screen if no errors
                         Navigator.push(
