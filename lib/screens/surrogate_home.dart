@@ -19,11 +19,6 @@ class _SurrogateHomeState extends State<SurrogateHome> {
     super.initState();
   }
 
-  Widget _buildImageWidget(String base64Image) {
-    final Uint8List bytes = base64Decode(base64Image);
-    return Image.memory(bytes);
-  }
-
   ImageProvider _getImageProvider(String base64Image) {
     final Uint8List bytes = base64Decode(base64Image);
     return MemoryImage(bytes);
@@ -142,11 +137,77 @@ class _SurrogateHomeState extends State<SurrogateHome> {
   }
 
   Widget _buildHomeScreen(){
-    return const Center(
-      child: Text(
-        'Potential Parents will be listed here',
-        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-      ),
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      stream: FirebaseFirestore.instance
+          .collection('intended_parents')
+          .snapshots(),
+      builder: (BuildContext context,
+          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        final data = snapshot.data?.docs ?? [];
+
+        if (data.isEmpty) {
+          return const Center(
+            child: Text(
+              'No data found',
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            ),
+          );
+        }
+
+        return ListView.builder(
+          itemCount: data.length,
+          itemBuilder: (BuildContext context, int index) {
+            final document = data[index];
+            final avatarData = document['avatar'] as Map<String, dynamic>?;
+            final base64Image = avatarData?['base64Image'] as String?;
+            final fullName = document['fullName'] as String?;
+            final compensation = document['expectedCompensation'] as String?;
+            final surrogacyKnowledge = document['surrogacyKnowledge'] as String?;
+
+            return Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: base64Image != null
+                          ? _getImageProvider(base64Image)
+                          : null,
+                      radius: 40.0,
+                    ),
+                    const SizedBox(width: 16.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          fullName ?? '',
+                          style: const TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text('Surrogacy Knowledge: $surrogacyKnowledge' ?? ''),
+                        Text(compensation != null ? 'Compensation: $compensation' : ''),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 

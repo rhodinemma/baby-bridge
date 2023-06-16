@@ -591,14 +591,6 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
 
                         _saveFormValues();
 
-                        // redirect to home screen
-                        /*Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Home(),
-                          ),
-                        );*/
-
                         // show submit success screen if no errors
                         Navigator.push(
                           context,
