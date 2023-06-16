@@ -7,6 +7,7 @@ import 'package:baby_bridge/widgets/slider.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SurrogateMotherForm extends StatefulWidget {
   const SurrogateMotherForm({Key? key}) : super(key: key);
@@ -16,6 +17,8 @@ class SurrogateMotherForm extends StatefulWidget {
 }
 
 class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   final _formKey = GlobalKey<FormState>();
   final Geolocator geolocator = Geolocator();
 
@@ -95,6 +98,28 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
     } catch (e) {
       print(e);
     }
+  }
+
+  void _saveFormValues() async {
+    CollectionReference formValues =
+    firestore.collection('surrogate_mothers'); // Choose a collection name
+
+    await formValues.add({
+      'fullName': _fullName,
+      'email': _email,
+      'description': _description,
+      'ageClaim': ageClaim,
+      'countryOfResidence': _selectedCountry,
+      'locationPreference': _isLocalChecked ? "Local" : _isNationalChecked ? "National" : "International",
+      'surrogacyKnowledge': _selectedOption,
+      'expectedCompensation': newValueWithZeros,
+      'numberOfChildren': numberOfChildren,
+      'smoker': _selectedOption2,
+    }).then((value) {
+      print('Form values saved successfully!');
+    }).catchError((error) {
+      print('Failed to save form values: $error');
+    });
   }
 
   @override
@@ -550,6 +575,8 @@ class _SurrogateMotherFormState extends State<SurrogateMotherForm> {
                         debugPrint('Full Name: $_fullName');
                         debugPrint('Email: $_email');
                         debugPrint('Description: $_description');
+
+                        _saveFormValues();
 
                         // redirect to home screen
                         /*Navigator.push(
